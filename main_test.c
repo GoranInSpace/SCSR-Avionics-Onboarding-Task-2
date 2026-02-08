@@ -28,6 +28,7 @@ int main() {
     } else { printf(RED "[FAIL]" RESET " Valid Data Check\n"); }
 
     // Test 2: Out of Range Data
+    faults = 0;
     if (validate_sensor_data(150.0f, 0.0f, 100.0f, &faults) == STATUS_ERROR_RANGE && faults == 1 ) {
         printf(GREEN "[PASS]" RESET " Out of Range Data Check\n");
         tests_passed++;
@@ -35,7 +36,8 @@ int main() {
 
     // Test 3: NaN Handling
     float nan_value = 0.0f / 0.0f;
-    if (validate_sensor_data(nan_value, 0.0f, 100.0f, &faults) == STATUS_ERROR_INVALID && faults == 2 ) {
+    faults = 0;
+    if (validate_sensor_data(nan_value, 0.0f, 100.0f, &faults) == STATUS_ERROR_INVALID && faults == 1 ) {
         printf(GREEN "[PASS]" RESET " NaN Protection Check\n");
         tests_passed++;
     } else { printf(RED "[FAIL]" RESET " NaN Protection Check\n"); }
